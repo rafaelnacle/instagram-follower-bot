@@ -62,8 +62,9 @@ class InstaFollower:
         time.sleep(5.5)
 
         # The Xpath can change in the future, so make sure to update if needed.
-        modal_xpath = "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]"
+        modal_xpath = '/html/body/div[1]/div/div/div[2]/div/div/div[1]/div[2]/div/div[1]/section/main/div/header/section[3]/ul/li[2]/div/a'
         modal = self.driver.find_element(By.XPATH, value=modal_xpath)
+        modal.click()
 
         for i in range(10):
             # This script will use Javascript to scroll the
