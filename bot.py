@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common import ElementClickInterceptedException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -72,5 +73,16 @@ class InstaFollower:
             self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
             time.sleep(2)
     def follow(self):
-        pass
+        buttons = self.driver.find_elements(By.XPATH, "//button//div[text()='Seguir']")
 
+        for button in buttons:
+            try:
+                button.click()
+                time.sleep(1.2)
+            # if user is already being followed, that will trigger dialog to unfollow/cancel
+            except ElementClickInterceptedException:
+                try:
+                    cancel_button = self.driver.find_element(By.XPATH, value="//button[contains(text(), 'Cancelar')]")
+                    cancel_button.click()
+                except NoSuchElementException:
+                    print("Cancel button not found.")
